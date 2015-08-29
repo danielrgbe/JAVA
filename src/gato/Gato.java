@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.util.Random;
 /**
  *
- * @author Juan
+ * @author Oakape
  */
 public class Gato 
 {
