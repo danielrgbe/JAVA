@@ -9,7 +9,7 @@ package gato;
 import java.util.Scanner;
 /**
  * 
- * @author Juan
+ * @author Oakape
  */
 public class Tablero {
 private Jugador jugador1,jugador2;

@@ -6,7 +6,7 @@
 package gato;
 /**
  * 
- * @author Juan
+ * @author Oakape
  */
 public class Jugador 
 {
