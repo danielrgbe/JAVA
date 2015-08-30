@@ -6,6 +6,7 @@
 
 package gato;
 
+
 import java.util.Scanner;
 /**
  * 
@@ -14,38 +15,37 @@ import java.util.Scanner;
 public class Tablero {
 private Jugador jugador1,jugador2;
 private Ficha fichasJuego[][] = new Ficha[3][3];
-private Scanner eleccion = new Scanner(System.in) ;
-
-
-
+private final Scanner eleccion ;
+private int contJ1,contJ2;
 
 
     public Tablero(){
-    System.out.println("Todo esta correcto!!!");
+        eleccion = new Scanner(System.in);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 fichasJuego [i][j]= new Ficha();
             }
         }
+        contJ1=0;
+        contJ2=0;
     
     }
-    
     
     public void obtenerDatosJugadores(){
-    //jugador1=datosJugador();
-    //jugador2=datosJugador();
-    jugador1=new Jugador("fernando","x");
-    jugador2=new Jugador("daniel","o");
+    jugador1=datosJugador();
+    jugador2=datosJugador();
+    //jugador1=new Jugador("daniel","x");
+  //  jugador2=new Jugador("Guillermo","v");
     
     
     }
     
-    public Jugador  datosJugador(){
+    public Jugador datosJugador(){
         
     String nombre,ficha;
     System.out.print("Intruduzca su nombre: ");
-    nombre="Daniel";//eleccion.nextLine();
-    System.out.println("Elija ficha de jugador \"x\" u \"o\"");
+    nombre=eleccion.nextLine();
+    System.out.println("Elija ficha de jugador");
     ficha=eleccion.nextLine();
     Jugador jugador=new Jugador(nombre,ficha);
     return jugador;    
@@ -59,18 +59,11 @@ private Scanner eleccion = new Scanner(System.in) ;
         if (jugador==2){
            fichasJuego[x][y]=jugador2.obtenerFichaJugador();
         }
-   // fichaJugador.establecerX(x);
-   // fichaJugador.establecerY(y);
     }
-        
-    
-    
-    
     
     public void imprimirEstadoDeJuego()
     {
-    
-    System.out.println("Espacio de verificacion");
+    System.out.println("Tablero del Juego version consola");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.printf("%s\t|",fichasJuego[i][j].obtenerTipoDeFicha());
@@ -81,136 +74,130 @@ private Scanner eleccion = new Scanner(System.in) ;
         }
     
     }
-     public boolean juegoTerminado(){
+    
+    public boolean juegoTerminado(){
         
+       
     boolean condicion1=verificarFilas();    
+    
     boolean condicion2=verificarColumnas();
-    boolean condicion3=verificarDiagonales();   
-        
-        
+    boolean condicion3=verificarDiagonales();  
     return condicion1 || condicion2 || condicion3;
+   
+        
          
     }
-     
     
-     public boolean verificarFilas(/*String elec*/){
-         int cont1=0,cont2=0;
-         for (int i = 0; i < 3; i++) 
-         {
+    public boolean verificarFilas(){
+        
+        if (contJ1==3||contJ2==3) {return true; }
+        
+         
+        for (int i = 0; i < 3; i++) 
+        {
              for (int j = 0; j < 3; j++) 
              {
-                 if(fichasJuego[i][j].obtenerTipoDeFicha().toString().equals("x"))
+                 if(fichasJuego[i][j].obtenerTipoDeFicha().toString().equals(jugador1.conseguirTipoFicha().toString()))
                  {
-                     cont1++;
+                     contJ1++;
                  }
-                 if(fichasJuego[i][j].obtenerTipoDeFicha().toString().equals("o")) 
+                 if(fichasJuego[i][j].obtenerTipoDeFicha().toString().equals(jugador2.conseguirTipoFicha().toString())) 
                  {
-                     cont2++;
+                     contJ2++;
                  }
              }
-             if(cont2==3 || cont1==3)
-             {
+             if(contJ2==3 || contJ1==3)
+             { 
     return true;
              }
              else
              {
-                 cont2=0;
-                 cont1=0;
+                 contJ2=0;
+                 contJ1=0;
              }
          }
     return false;
-    
-             /*int fil=0,col=0;
-         
-         for ( int i= 0; i < 3; i++){
-             for (int   j = 0; j <3; j++) {
-                 if(fichasJuego[fil][col].obtenerTipoDeFicha().toString().equals("x")){  
-                     cont1++; 
-                 }  
-                 if(fichasJuego[fil][col].obtenerTipoDeFicha().toString().equals("o")){
-                     cont2++;
-                 }
-                 if(elec.toString().equals("fila")){
-                     col++;
-                 }
-                 else{
-                     fil++;
-                 }
-             }
-             if(elec.toString().equals("fila")){
-                fil++;
-                col=0;
-             }
-             else{
-                 col++;
-                 fil=0;
-             }
-             if(cont2==3 || cont1==3){
-                 return true;
-             }
-             else{
-                 cont2=0;
-                 cont1=0;}
-         }*/
-         
     }
+     
     public boolean verificarColumnas(){
-        int cont1=0,cont2=0;
+         if (contJ1==3||contJ2==3) {return true; }
          for (int i = 0; i < 3; i++) {
              for (int j = 0; j < 3; j++) {
-                 if(fichasJuego[j][i].obtenerTipoDeFicha().toString().equals("x")){
-                 cont1++;
+                 if(fichasJuego[j][i].obtenerTipoDeFicha().equals(jugador1.conseguirTipoFicha())){
+                 contJ1++;
                  }
-                 if(fichasJuego[j][i].obtenerTipoDeFicha().toString().equals("o")){
-                 cont2++;
+                 if(fichasJuego[j][i].obtenerTipoDeFicha().equals(jugador2.conseguirTipoFicha())){
+                 contJ2++;
+                 
                  }
              }
-             if(cont2==3 || cont1==3)
+             if(contJ2==3 || contJ1==3)
              {
-             return true;
+    System.out.println("paso por aqui columnas");
+    return true;
              
              }
-             else{cont2=0;
-             cont1=0;}
+             else{
+                 contJ2=0;
+                 contJ1=0;
+             }
+             
          }
-         
-        
-    
     return false;
     
     
     }
     
     public boolean verificarDiagonales(){
-        int cont1=0,cont2=0,cont3=0,cont4=0;
+       if (contJ1==3||contJ2==3) {return true; }
         for (int i = 0; i < 3; i++) 
         {
-            if(fichasJuego[i][i].obtenerTipoDeFicha().toString().equals("x")){
-                cont1++;
+            if(fichasJuego[i][i].obtenerTipoDeFicha().equals(jugador1.conseguirTipoFicha())){
+                contJ1++;
             }
-            if(fichasJuego[i][i].obtenerTipoDeFicha().toString().equals("o")){
-                cont2++;
+            if(fichasJuego[i][i].obtenerTipoDeFicha().equals(jugador2.conseguirTipoFicha())){
+                contJ2++;
             }
-        }
-        
-        for (int i = 0; i < 3; i++) 
-        {
-            if(fichasJuego[2-i][i].obtenerTipoDeFicha().toString().equals("x")){
-                cont3++;
-            }
-            if(fichasJuego[2-i][i].obtenerTipoDeFicha().toString().equals("o")){
-                cont4++;
-            }
-        }
-        
- 
             
-        
-    
-    return cont1==3||cont2==3||cont3==3||cont4==3;
+        } 
+        if(contJ1==3||contJ2==3){return true;}
+        else{
+            contJ1=0;
+            contJ2=0;
+        }
+        for (int i = 0; i < 3; i++) 
+        {
+            if(fichasJuego[2-i][i].obtenerTipoDeFicha().equals(jugador1.conseguirTipoFicha())){
+                contJ1++;
+            }
+            if(fichasJuego[2-i][i].obtenerTipoDeFicha().equals(jugador2.conseguirTipoFicha())){
+                contJ2++;
+            }
+        }
+        if(contJ1==3||contJ2==3){return true;}
+        else{
+            contJ1=0;
+            contJ2=0;
+        }
+        return false;
     }
     
+    public Jugador obtenerGanador(){
+        System.out.println("contJ1: "+contJ1+" contJ2: "+contJ2);
+        if(contJ1==3){
+            jugador1.est=Jugador.estados.gano;
+            jugador2.est=Jugador.estados.perdio;
+        return jugador1;
+        }
+        if(contJ2==3){
+            jugador2.est=Jugador.estados.gano;
+            jugador1.est=Jugador.estados.perdio;
+        return jugador2;
+        
+        }
+        else{return null;}
     
+    }
     
     
 }

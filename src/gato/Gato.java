@@ -27,14 +27,15 @@ public class Gato
       
     System.out.println("Bienvenido al juego Gato\n"+"Elaborado por OakMonkeyExpress\n"+"Version : 1.0");
     int cont = 0;
-    String resp;    
+    String resp; 
+    Tablero nuevoTablero=new Tablero();
            
     
    
    
     
     do {
-    Tablero nuevoTablero=new Tablero();
+    
     nuevoTablero.obtenerDatosJugadores();
         
          while (!nuevoTablero.juegoTerminado())
@@ -49,7 +50,7 @@ public class Gato
             
             if( numeroMov == 9 || nuevoTablero.juegoTerminado() )
             {
-                
+                numeroMov=0;
                 continue;
                 
             }
@@ -62,12 +63,15 @@ public class Gato
             nuevoTablero.imprimirEstadoDeJuego();    
             
         }
+         
+         System.out.println("El ganador de la partida es: " + nuevoTablero.obtenerGanador());
         
         
             cont++;
             System.out.printf("Juego numero:%d Desea volver a jugar\n\n\n\n\n\n\n\n\n\n",cont);
             //resp=posc.next();
-        } while (cont<1000);
+            nuevoTablero= new Tablero();
+        } while (cont<5);
     
     
     }

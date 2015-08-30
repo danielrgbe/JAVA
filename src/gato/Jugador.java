@@ -13,12 +13,14 @@ public class Jugador
     //public Ficha eleccion;
     private final String nombre;
     private final Ficha fichaJugador;
-    
+ //  private String estado;
+    public enum estados{gano,perdio,empato}
+    public estados est;
     public Jugador()
     { 
     nombre = "";
     fichaJugador=new Ficha();
-    
+    //est=estados.empatado;
     //eleccion = Ficha.DEFAULT;
     
     }
@@ -26,13 +28,16 @@ public class Jugador
     {
         
         nombre=nom;
-        fichaJugador= new Ficha(tipoFicha);   
-        
+        fichaJugador= new Ficha(tipoFicha);
+        est=estados.perdio;
     }
    
         
     public Ficha obtenerFichaJugador(){
     return fichaJugador;
+    }
+    public void establecerEstado(String est){
+       // estado=est;
     }
     
     public String conseguirDatosJugador(){
@@ -51,6 +56,28 @@ public class Jugador
     return fichaJugador.obtenerTipoDeFicha();//eleccion.toString();
     }  
     
+    @Override
+    public String toString(){
+        
+        switch(est){
+            
+            case perdio:
+                System.out.println("Perdio");
+                break;
+             case gano:
+                System.out.println("Gano");
+                break;   
+                 case empato:
+                System.out.println("Empato");
+                break;
+        
+        
+        }
+        return String.format("\n%s %s\n%s","Nombre de jugador: ",
+                nombre,fichaJugador.toString());
+        
+    
+    }
     
     
 }

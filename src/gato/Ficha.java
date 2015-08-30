@@ -61,7 +61,11 @@ public  class  Ficha{
         return poscY;
          
     }
-
+    
+    @Override
+    public String toString(){
+    return String.format("%s%s","Tipo de ficha: ",tipoDeFicha);
+    }
 
 
 
