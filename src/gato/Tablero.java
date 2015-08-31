@@ -14,9 +14,10 @@ import java.util.Scanner;
  */
 public class Tablero {
 private Jugador jugador1,jugador2;
-private Ficha fichasJuego[][] = new Ficha[3][3];
+private final Ficha fichasJuego[][] = new Ficha[3][3];
 private final Scanner eleccion ;
-private int contJ1,contJ2;
+private int contJ1,contJ2,numMov;
+private boolean condicion1,condicion2,condicion3,condicion4;
 
 
     public Tablero(){
@@ -28,6 +29,7 @@ private int contJ1,contJ2;
         }
         contJ1=0;
         contJ2=0;
+        numMov=0;
     
     }
     
@@ -45,7 +47,7 @@ private int contJ1,contJ2;
     String nombre,ficha;
     System.out.print("Intruduzca su nombre: ");
     nombre=eleccion.nextLine();
-    System.out.println("Elija ficha de jugador");
+    System.out.println("Elija ficha de jugador puede ser cualquier conjunto de caracteres");
     ficha=eleccion.nextLine();
     Jugador jugador=new Jugador(nombre,ficha);
     return jugador;    
@@ -54,11 +56,12 @@ private int contJ1,contJ2;
     
      public void colocarFicha(int jugador,int x, int y){
         if(jugador==1){
-            fichasJuego[x][y]=jugador1.obtenerFichaJugador();
+            fichasJuego[x-1][y-1]=jugador1.obtenerFichaJugador();
         }
         if (jugador==2){
-           fichasJuego[x][y]=jugador2.obtenerFichaJugador();
+           fichasJuego[x-1][y-1]=jugador2.obtenerFichaJugador();
         }
+        numMov++;
     }
     
     public void imprimirEstadoDeJuego()
@@ -77,12 +80,12 @@ private int contJ1,contJ2;
     
     public boolean juegoTerminado(){
         
-       
-    boolean condicion1=verificarFilas();    
+    condicion4= numMov==5;   
+    condicion1=verificarFilas();    
     
-    boolean condicion2=verificarColumnas();
-    boolean condicion3=verificarDiagonales();  
-    return condicion1 || condicion2 || condicion3;
+    condicion2=verificarColumnas();
+    condicion3=verificarDiagonales();  
+    return condicion1 || condicion2 || condicion3||condicion4;
    
         
          
@@ -133,7 +136,6 @@ private int contJ1,contJ2;
              }
              if(contJ2==3 || contJ1==3)
              {
-    System.out.println("paso por aqui columnas");
     return true;
              
              }
@@ -182,20 +184,32 @@ private int contJ1,contJ2;
         return false;
     }
     
-    public Jugador obtenerGanador(){
-        System.out.println("contJ1: "+contJ1+" contJ2: "+contJ2);
+    public void obtenerEstadoJugadores(){
+        
         if(contJ1==3){
             jugador1.est=Jugador.estados.gano;
             jugador2.est=Jugador.estados.perdio;
-        return jugador1;
+        System.out.println("  "+jugador1);
+        
+        System.out.println("  "+jugador2);
         }
         if(contJ2==3){
             jugador2.est=Jugador.estados.gano;
             jugador1.est=Jugador.estados.perdio;
-        return jugador2;
+            
+        System.out.println("  "+jugador1);
+        
+        System.out.println("  "+jugador2);
         
         }
-        else{return null;}
+        if(contJ2!=3 && contJ1!=3){
+            jugador2.est=Jugador.estados.empato;
+            jugador1.est=Jugador.estados.empato;
+           
+        System.out.println("  "+jugador1);
+        
+        System.out.println("  "+jugador2);
+          }
     
     }
     

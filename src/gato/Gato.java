@@ -1,6 +1,6 @@
 package gato;
 import java.util.Scanner;
-import java.util.Random;
+//import java.util.Random;
 /**
  *
  * @author Oakape
@@ -9,8 +9,8 @@ public class Gato
 {
     
     private final Scanner posc = new Scanner(System.in);
-    private int numeroMov=0;
-    private final Random pJ= new Random();
+  //  private int numeroMov=0;
+    //private final Random pJ= new Random();
     /**
      * @param args the command line arguments
      */
@@ -40,38 +40,35 @@ public class Gato
         
          while (!nuevoTablero.juegoTerminado())
         {
-            //int x,y;
+            int x,y;
             System.out.println("Elija la pocicion de su ficha: ");
-            //x=posc.nextInt();
-            //y=posc.nextInt();
-            nuevoTablero.colocarFicha(1,pJ.nextInt(3),pJ.nextInt(3));    
+            x=posc.nextInt();
+            y=posc.nextInt();
+            nuevoTablero.colocarFicha(1,x,y);    
             nuevoTablero.imprimirEstadoDeJuego(); 
-            numeroMov++;
-            
-            if( numeroMov == 9 || nuevoTablero.juegoTerminado() )
+            if(nuevoTablero.juegoTerminado() )
             {
-                numeroMov=0;
+                
                 continue;
                 
             }
             
             System.out.println("Elija la pocicion de su ficha: ");
-           // x=posc.nextInt();
-           // y=posc.nextInt();
-            nuevoTablero.colocarFicha(2,pJ.nextInt(3),pJ.nextInt(3));
-            numeroMov++;
+            x=posc.nextInt();
+            y=posc.nextInt();
+            nuevoTablero.colocarFicha(2,x,y);
             nuevoTablero.imprimirEstadoDeJuego();    
             
         }
          
-         System.out.println("El ganador de la partida es: " + nuevoTablero.obtenerGanador());
+         nuevoTablero.obtenerEstadoJugadores();
         
         
             cont++;
-            System.out.printf("Juego numero:%d Desea volver a jugar\n\n\n\n\n\n\n\n\n\n",cont);
-            //resp=posc.next();
+            System.out.printf("Juego numero:%d \n\n\n\n\n\n\n\n\n\nDesea volver a jugar (si) o (no):",cont);
+            resp=posc.next();
             nuevoTablero= new Tablero();
-        } while (cont<5);
+        } while (resp.equals("si"));
     
     
     }

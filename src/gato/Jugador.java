@@ -62,13 +62,13 @@ public class Jugador
         switch(est){
             
             case perdio:
-                System.out.println("Perdio");
+                System.out.print("Perdio");
                 break;
              case gano:
-                System.out.println("Gano");
+                System.out.print("Gano");
                 break;   
                  case empato:
-                System.out.println("Empato");
+                System.out.print("Empato");
                 break;
         
         
